@@ -1,0 +1,25 @@
+# .github/workflows/debug.yml
+name: Debug Workflow
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: List files
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "Files in root:"
+        ls -la
+        echo "Looking for docs:"
+        find . -name "docs" -type d
+        echo "Python version:"
+        python3 --version
