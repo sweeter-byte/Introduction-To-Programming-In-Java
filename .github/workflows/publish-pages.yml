@@ -2,8 +2,7 @@ name: Publish Sphinx docs to GitHub Pages
 
 on:
   push:
-    branches:
-      - "main"
+    branches: ["master"]
   workflow_dispatch:
 
 permissions:
@@ -27,30 +26,29 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f Library-Management-System/docs/requirements.txt ]; then
-            pip install -r Library-Management-System/docs/requirements.txt
+          if [ -f "Library-Management-System/docs/requirements.txt" ]; then
+            pip install -r "Library-Management-System/docs/requirements.txt"
           else
             pip install sphinx
           fi
 
       - name: Build Sphinx HTML
-        working-directory: Library-Management-System/docs
         run: |
-          if [ -f Makefile ]; then
-            make html
+          if [ -f "Library-Management-System/docs/Makefile" ]; then
+            (cd "Library-Management-System/docs" && make html)
           else
-            sphinx-build -b html source build/html
+            sphinx-build -b html "Library-Management-System/docs/source" "Library-Management-System/docs/build/html"
           fi
 
       - name: Debug: list build output
         run: |
-          echo "=== ls -R Library-Management-System/docs/build/html ==="
-          ls -R Library-Management-System/docs/build/html || true
+          echo "=== Listing generated files ==="
+          ls -R "Library-Management-System/docs/build/html" || true
 
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: Library-Management-System/docs/build/html
+          path: "Library-Management-System/docs/build/html"
 
   deploy:
     needs: build
