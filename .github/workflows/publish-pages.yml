@@ -1,12 +1,11 @@
 name: Publish Sphinx docs to GitHub Pages
 
-# 触发器：push 到 main 或手动触发
 on:
   push:
-    branches: ["master"]
+    branches:
+      - "main"
   workflow_dispatch:
 
-# 必要权限（官方建议）
 permissions:
   contents: read
   pages: write
@@ -26,17 +25,15 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        # 优先使用你放在 Library-Management-System/docs/requirements.txt 的依赖
         run: |
           python -m pip install --upgrade pip
           if [ -f Library-Management-System/docs/requirements.txt ]; then
             pip install -r Library-Management-System/docs/requirements.txt
           else
             pip install sphinx
-            # 如你使用特定 theme（例如 sphinx-book-theme / sphinx_rtd_theme），可在 requirements.txt 中指定
           fi
 
-      - name: Build Sphinx HTML (use Makefile if exists, else sphinx-build)
+      - name: Build Sphinx HTML
         working-directory: Library-Management-System/docs
         run: |
           if [ -f Makefile ]; then
@@ -60,5 +57,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v1
 
