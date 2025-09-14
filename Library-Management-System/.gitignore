@@ -1,0 +1,30 @@
+# Sphinx构建输出
+docs/build/
+docs/_build/
+
+# Python相关
+__pycache__/
+*.py[cod]
+*.class
+*.so
+
+# Java相关
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+*.iml
+.idea/
+target/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+
