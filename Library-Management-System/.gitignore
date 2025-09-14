@@ -1,5 +1,4 @@
 # Sphinx构建输出
-docs/build/
 docs/_build/
 
 # Python相关
